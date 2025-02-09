@@ -1,0 +1,36 @@
+*&---------------------------------------------------------------------*
+*& Report zmop_syntax_example
+*&---------------------------------------------------------------------*
+*&
+*&---------------------------------------------------------------------*
+REPORT zmop_syntax_example.
+
+DATA name TYPE c LENGTH 10.
+DATA text TYPE string.
+
+CONCATENATE: 'Hello'
+name
+INTO text.
+
+WRITE: text.
+
+*text = 'Hello'
+
+text = 'Wiktor'.
+
+*text = replace( val = 'Hello World'
+*sub = 'World'
+*with = name
+*).
+
+text = COND #( WHEN text = '' THEN 'Hello' && name
+ELSE text ).
+
+Write: text.
+
+Data var1 type i value 3.
+Data var2 type i value 5.
+Data result type i.
+Result = var1 * var2.
+
+Write: / result.
