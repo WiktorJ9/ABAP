@@ -1,0 +1,52 @@
+REPORT zmop_calculator.
+
+DATA: lv_num1 TYPE p DECIMALS 2,
+      lv_num2 TYPE p DECIMALS 2,
+      lv_result TYPE p DECIMALS 2,
+      lv_operation TYPE c LENGTH 1.
+
+PARAMETERS: p_num1 TYPE p DECIMALS 2,
+            p_num2 TYPE p DECIMALS 2.
+
+PARAMETERS: r_add RADIOBUTTON GROUP grp1 DEFAULT 'X',
+            r_sub RADIOBUTTON GROUP grp1,
+            r_mul RADIOBUTTON GROUP grp1,
+            r_div RADIOBUTTON GROUP grp1.
+
+START-OF-SELECTION.
+  lv_num1 = p_num1.
+  lv_num2 = p_num2.
+
+  IF r_add = 'X'.
+    lv_operation = '+'.
+  ELSEIF r_sub = 'X'.
+    lv_operation = '-'.
+  ELSEIF r_mul = 'X'.
+    lv_operation = '*'.
+  ELSEIF r_div = 'X'.
+    lv_operation = '/'.
+  ELSE.
+    WRITE: / 'Error: No operation selected.'.
+    EXIT.
+  ENDIF.
+
+  CASE lv_operation.
+    WHEN '+'.
+      lv_result = lv_num1 + lv_num2.
+    WHEN '-'.
+      lv_result = lv_num1 - lv_num2.
+    WHEN '*'.
+      lv_result = lv_num1 * lv_num2.
+    WHEN '/'.
+      IF lv_num2 <> 0.
+        lv_result = lv_num1 / lv_num2.
+      ELSE.
+        WRITE: / 'Error: Division by zero is not allowed.'.
+        EXIT.
+      ENDIF.
+    WHEN OTHERS.
+      WRITE: / 'Error: Invalid operation.'.
+      EXIT.
+  ENDCASE.
+
+  WRITE: / 'Result:', lv_result.
